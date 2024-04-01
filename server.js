@@ -25,6 +25,11 @@ app.use(express.urlencoded({extended: true}))
 
 app.use(routes)
 
+app.get((req, res) => {
+    res.send('Testing testing')
+    console.log('HEY THERE')
+})
+
 app.listen(PORT, () => {
     console.log(`Listerning to  ${PORT}......`)
 })
