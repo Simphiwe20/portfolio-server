@@ -6,7 +6,9 @@ const nodemailer = require('nodemailer')
 const sendFeedback = (req) => {
     console.log(req.body)
     let mailTransporter = nodemailer.createTransport({
-        service: 'gmail',
+        host: 'smtp.gmail.com',
+        port: 587, //2525 (specific port)
+        secureConnection: true, //true or false
         auth: {
             user: 'gsimphiwe212@gmail.com',
             pass: 'kkdvatjekgzlwrvr'
@@ -17,7 +19,7 @@ const sendFeedback = (req) => {
         from: 'gsimphiwe212@gmail.com',
         to: `${req.body.email}`,
         subject: 'Comment Feedback',
-        text: `Hey ${req.body.fullName}, Thank you for reaching out. Your comment was received.` 
+        text: `Hey ${req.body.fullName}, Thank you for reaching out. Your comment was received.`
     }
 
     mailTransporter.sendMail(details, (err) => {
@@ -35,7 +37,9 @@ const sendFeedback = (req) => {
 const sendComment = (req) => {
     console.log(req.body)
     let mailTransporter = nodemailer.createTransport({
-        service: 'gmail',
+        host: 'smtp.gmail.com',
+        port: 587, //2525 (specific port)
+        secureConnection: true, //true or false
         auth: {
             user: 'gsimphiwe212@gmail.com',
             pass: 'kkdvatjekgzlwrvr'
@@ -46,7 +50,7 @@ const sendComment = (req) => {
         from: 'gsimphiwe212@gmail.com',
         to: `gsimphiwe212@gmail.com`,
         subject: 'Website comment',
-        text: `Hey ${req.body.fullName} has send a comment on your website. here is it ${JSON.stringify(req.body)} ` 
+        text: `Hey ${req.body.fullName} has send a comment on your website. here is it ${JSON.stringify(req.body)} `
     }
 
     mailTransporter.sendMail(details, (err) => {
@@ -70,9 +74,9 @@ module.exports = {
             sendFeedback(req)
             sendComment(req)
             res.status(200).send(result)
-        }catch(err) {
+        } catch (err) {
             console.log(err)
-            res.status(500).send({Error: 'Please use my contact details below. The seems to be an issue with my server'})
+            res.status(500).send({ Error: 'Please use my contact details below. The seems to be an issue with my server' })
         }
     }
 }
